@@ -52,6 +52,7 @@ void th4() {
 
 int main()
 {
+    
     setlocale(LC_ALL, "RU");
     std::cin >> a;
     InitializeCriticalSection(&ocs);
@@ -63,13 +64,12 @@ int main()
         }
     }
     int endTime1 = clock();
-    std::cout << "1st time Один поток : " << endTime1 - startTime1 << "ms" << "\n" << res << "\n";
+    std::cout << "1st time Один поток : " << endTime1 - startTime1 << "ms" << "\n" << res << "\n\n";
     //outData << "1st time: " << endTime - startTime << "Результат: " << res;
     res = 0;
 
     auto thf1 = CreateThread(NULL, 0, LPTHREAD_START_ROUTINE(th1), NULL, CREATE_SUSPENDED, LPDWORD());
     int startTime2 = clock();
-    
      ResumeThread(thf1);
      for (int i = 1; i < 10000000; i += 2) {
          for (int j = 0; j < 20; j++) {
@@ -81,7 +81,7 @@ int main()
     WaitForSingleObject(thf1, INFINITE);
     DeleteCriticalSection(&ocs);
     int endTime2 = clock();;
-    std::cout << "2nd time Win.h-CritSec: " << endTime2 - startTime2 << "ms" << "\n" << res << "\n";
+    std::cout << "2nd time Win.h-CritSec: " << endTime2 - startTime2 << "ms" << "\n" << res << "\n\n";
     res = 0;
     auto thf2 = CreateThread(NULL, 0, LPTHREAD_START_ROUTINE(th2), NULL, CREATE_SUSPENDED, LPDWORD());
     int startTime3 = clock();
@@ -93,7 +93,7 @@ int main()
     }
     WaitForSingleObject(thf2, INFINITE);
     int endTime3 = clock();;
-    std::cout << "3nd time Win.h no-critSec: " << endTime3 - startTime3 << "ms" << "\n" << res << "\n";
+    std::cout << "3nd time Win.h no-critSec: " << endTime3 - startTime3 << "ms" << "\n" << res << "\n\n";
 
 
     res = 0;
@@ -108,7 +108,7 @@ int main()
     }
     thf3.join();
     int endTime4 = clock();;
-    std::cout << "4nd time threads+mutex: " << endTime4 - startTime4 << "ms" << "\n" << res << "\n";
+    std::cout << "4nd time threads+mutex: " << endTime4 - startTime4 << "ms" << "\n" << res << "\n\n";
     
     res = 0;
     int startTime5 = clock();
@@ -120,6 +120,7 @@ int main()
     }
     thf4.join();
     int endTime5 = clock();;
-    std::cout << "4nd time thread-atomic: " << endTime5 - startTime5 << "ms" << "\n" << result << "\n";
+    std::cout << "5nd time thread-atomic: " << endTime5 - startTime5 << "ms" << "\n" << result << "\n";
     return 0;
+
 }
